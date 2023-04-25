@@ -31,10 +31,10 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of countries</h2>
+                <h2>List of users</h2>
             </div>
             <div class="pull-right mb-2">
-                <a class="btn btn-primary" href="{{ route('country.create') }}">Add new country</a>
+                <a class="btn btn-primary" href="{{ route('admin.create') }}">Create role</a>
             </div>
         </div>
     </div>
@@ -46,34 +46,38 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Code</th>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Continent</th>
-                <th>Region</th>
-                <th>Population</th>
-                <th width="150px">Action</th>
+                <th>Email</th>
+                <th>Roles</th>
+                
+                <th width="230px">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($country as $country)
+            @foreach ($data as $user)
             <tr>
-                <td>{{ $country->Code }}</td>
-                <td>{{ $country->Name }}</td>
-                <td>{{ $country->Continent }}</td>
-                <td>{{ $country->Region }}</td>
-                <td>{{ $country->Population }}</td>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->email }}</td>
                 <td>
-                    <form action="{{ route('country.destroy',$country->Code) }}" method="Post">
-                        <a class="btn btn-primary"href="{{ route('country.edit',$country->Code) }}">Edit</a>
-                        @csrf
-                        @method('DELETE')
-                        <!-- button type="submit" class="btn btn-danger">Delete</button -->
+                    @foreach ($user->roles as $role) 
+                    {{ $role->name }}
+                    @endforeach
+                    
+                </td>
+                
+                <td>
+                    <form action="{{ route('admin.destroy',$user->id) }}" method="Post">
+                        <a class="btn btn-primary"href="{{ route('admin.edit',$user->id) }}">Add role</a>
+                        <a class="btn btn-danger"href="{{ route('deleterole',$user->id) }}">Delete role</a>
                     </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+   
 </div>
 </body>
 </html>

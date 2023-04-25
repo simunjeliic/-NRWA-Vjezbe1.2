@@ -22,6 +22,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('country.index') }}">Country</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.index') }}">Roles</a>
+        </li>
     </div>
 </nav>
 <div class="container mt-2">
@@ -71,6 +74,7 @@
             @endforeach
         </tbody>
     </table>
+   
 </div>
 </body>
 </html>
