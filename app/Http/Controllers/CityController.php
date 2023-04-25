@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\City;
+use App\Models\Country;
 
 class CityController extends Controller
 {
@@ -14,7 +15,8 @@ class CityController extends Controller
 
     public function create()
     {
-        return view('city.create');
+        $CountryCode = Country::get(['Code', 'Name']);
+        return view('city.create', compact('CountryCode'));
     }
 
     public function store(Request $request,)
@@ -38,7 +40,8 @@ class CityController extends Controller
 
     public function edit(City $city)
     {
-        return view('city.edit',compact('city'));
+        $CountryCode = Country::get(['Code', 'Name']);
+        return view('city.edit',compact('city','CountryCode'));
     }
 
     public function update(Request $request, City $city)

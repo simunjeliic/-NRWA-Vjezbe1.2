@@ -58,8 +58,23 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Country Code:</strong><br>
-                    <a style="color:red;">Country Code must be an already existing Country Code such as AFG for Afghanistan etc.</a><br>
-                    <input type="countrycode" name="CountryCode" class="form-control" placeholder="Country Code">
+                    
+                    <select class="form-control" name="CountryCode">
+
+                        <option>Select CountryCode</option>
+                    
+                        @foreach ($CountryCode as $code)
+                    
+                            <option value="{{ $code->Code }}"> 
+                    
+                               ({{ $code->Code }}) {{ $code->Name }} 
+                    
+                            </option>
+                    
+                        @endforeach    
+                    
+                    </select>
+
                     @error('countrycode')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror

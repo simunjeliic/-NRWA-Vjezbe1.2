@@ -59,11 +59,23 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
+                <strong>Country Code:</strong><br>
                 <div class="form-group">
-                    <strong>Country Code:</strong><br>
-                    <a style="color:red;">Country Code must be an already existing Country Code such as AFG for Afghanistan etc.</a><br>
-                    <input type="countrycode" name="CountryCode" class="form-control" placeholder="CountryCode"
-                    value="{{ $city->CountryCode }}">
+                    <select class="form-control" name="CountryCode">
+
+                        <option>{{ $city->CountryCode }}</option>
+                    
+                        @foreach ($CountryCode as $code)
+                    
+                            <option value="{{ $code->Code }}"> 
+                    
+                               ({{ $code->Code }}) {{ $code->Name }} 
+                    
+                            </option>
+                    
+                        @endforeach    
+                    
+                    </select>
                     @error('countrycode')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
