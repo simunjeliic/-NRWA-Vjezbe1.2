@@ -23,6 +23,9 @@
             <a class="nav-link" href="{{ route('country.index') }}">Country</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('countrylanguage.index') }}">Country Language</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.index') }}">Roles</a>
         </li>
     </div>
@@ -63,6 +66,7 @@
                 <td>
                     @foreach ($user->roles as $role) 
                     {{ $role->name }}
+                    <br>
                     @endforeach
                     
                 </td>

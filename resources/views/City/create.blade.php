@@ -23,7 +23,10 @@
             <a class="nav-link" href="{{ route('city.index') }}">City</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('country.index') }}">City</a>
+            <a class="nav-link" href="{{ route('countrylanguage.index') }}">Country Language</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.index') }}">Roles</a>
         </li>
     </div>
 </nav>

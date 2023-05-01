@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Countrylanguage extends Model
 {
 	protected $table = 'countrylanguage';
+	protected $primaryKey = 'CountryCode_Language';
 	public $incrementing = false;
 	public $timestamps = false;
 
@@ -38,5 +39,9 @@ class Countrylanguage extends Model
 	public function country()
 	{
 		return $this->belongsTo(Country::class, 'CountryCode');
+	}
+	public function getKeyName()
+	{
+		return 'CountryCode_Language';
 	}
 }

@@ -34,10 +34,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of countries</h2>
-            </div>
-            <div class="pull-right mb-2">
-                <a class="btn btn-primary" href="{{ route('country.create') }}">Add new country</a>
+                <h2>List of countries and languages</h2>
             </div>
         </div>
     </div>
@@ -49,30 +46,19 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Continent</th>
-                <th>Region</th>
-                <th>Population</th>
-                <th width="150px">Action</th>
+                <th>Country Code</th>
+                <th>Language</th>
+                <th>Is official</th>
+                <th>Percentage</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($country as $country)
+            @foreach ($countrylanguage as $countrylanguage)
             <tr>
-                <td>{{ $country->Code }}</td>
-                <td>{{ $country->Name }}</td>
-                <td>{{ $country->Continent }}</td>
-                <td>{{ $country->Region }}</td>
-                <td>{{ $country->Population }}</td>
-                <td>
-                    <form action="{{ route('country.destroy',$country->Code) }}" method="Post">
-                        <a class="btn btn-primary"href="{{ route('country.edit',$country->Code) }}">Edit</a>
-                        @csrf
-                        @method('DELETE')
-                        <!-- button type="submit" class="btn btn-danger">Delete</button -->
-                    </form>
-                </td>
+                <td>{{ $countrylanguage->CountryCode }}</td>
+                <td>{{ $countrylanguage->Language }}</td>
+                <td>{{ $countrylanguage->IsOfficial }}</td>
+                <td>{{ $countrylanguage->Percentage }}</td>
             </tr>
             @endforeach
         </tbody>
