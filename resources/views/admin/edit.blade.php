@@ -89,16 +89,14 @@
                 <strong>Add new role:</strong><br>
                 <div class="form-group">
                     <select class="form-control" name="role">
-                        @foreach ($roles as $role)
-                    
+                    @foreach ($roles as $role)
+                        @if (!in_array($role->id, $user->roles->pluck('id')->toArray()))
                             <option value="{{ $role->id }}"> 
-                    
-                               {{ $role->name }}
-                    
+                                {{ $role->name }}
                             </option>
-                    
-                        @endforeach    
-                    
+                        @endif
+                    @endforeach
+
                     </select>
                     <button type="submit" class="btn btn-primary ml-3">Add Role</button>
                 </form>
