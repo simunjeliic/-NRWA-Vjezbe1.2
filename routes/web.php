@@ -14,6 +14,11 @@ Route::resource('countrylanguage', CountryLanguageController::class);
 Route::post('addrole/{id}', [AdminUserController::class, 'addrole'])->name('addrole');
 Route::post('destroyrole/{id}', [AdminUserController::class, 'destroyrole'])->name('destroyrole');
 Route::get('deleterole/{id}', [AdminUserController::class, 'deleterole'])->name('deleterole');
+Route::get('users/createUser', [AdminUserController::class, 'createuser'])->name('users.createuser');
+Route::post('users/storeUser', [AdminUserController::class, 'storeuser'])->name('admin.storeuser');
+Route::get('users/editUser/{id}', [AdminUserController::class, 'edituser'])->name('admin.edituser');
+Route::post('users/updateUser/{id}', [AdminUserController::class, 'updateuser'])->name('admin.updateuser');
+Route::delete('users/{id}', [AdminUserController::class, 'deleteuser'])->name('admin.deleteuser');
 
 Route::get('/', function () {
     return view('welcome');

@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Add new role</h2>
+                <h2>Edit user</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('admin.index') }}" enctype="multipart/form-data">
@@ -50,63 +50,41 @@
         {{ session('status') }}
     </div>
     @endif
-    
+    <form action="{{ route('admin.updateuser',$user->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('POST')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
-                    {{ $user->name }}
+                    <input type="text" name="name" value="{{ $user->name }}" class="form-control">
                     @error('name')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <strong>Roles:</strong><br>
-
-                    @foreach ($user->roles as $role) 
-                    {{ $role->name }} 
-                    @endforeach
-
-                    @error('countrycode')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    {{ $user->email }}
-                    @error('district')
+                    <input type="text" name="email" value="{{ $user->email }}" class="form-control">
+                    @error('email')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
-            <form action="{{ route('addrole',$user->id) }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <strong>Add new role:</strong><br>
                 <div class="form-group">
-                    <select class="form-control" name="role">
-                        <option></option>
-                    @foreach ($roles as $role)
-                        @if (!in_array($role->id, $user->roles->pluck('id')->toArray()))
-                            <option value="{{ $role->id }}"> 
-                                {{ $role->name }}
-                            </option>
-                        @endif
-                    @endforeach
-                    </select>
-                    <button type="submit" class="btn btn-primary ml-3">Add Role</button>
-                </form>
-                    @error('countrycode')
+                    <strong>New password:</strong>
+                    <input type="password" name="password" class="form-control"
+                    placeholder="Password">
+                    @error('password')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                 </div>
-            
+            </div>
+            <button type="submit" class="btn btn-primary ml-3">Submit</button>
         </div>
-    
+    </form>
 </div>
 </body>
 </html>

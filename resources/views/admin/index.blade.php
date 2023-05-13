@@ -38,6 +38,7 @@
             </div>
             <div class="pull-right mb-2">
                 <a class="btn btn-primary" href="{{ route('admin.create') }}">Create role</a>
+                <a class="btn btn-info" href="{{ route('users.createuser') }}">Create user</a>
             </div>
         </div>
     </div>
@@ -75,6 +76,13 @@
                     <form action="{{ route('admin.destroy',$user->id) }}" method="Post">
                         <a class="btn btn-primary"href="{{ route('admin.edit',$user->id) }}">Add role</a>
                         <a class="btn btn-danger"href="{{ route('deleterole',$user->id) }}">Delete role</a>
+                    </form>
+                    <br>
+                    <form action="{{ route('admin.deleteuser',$user->id) }}" method="POST">
+                        <a class="btn btn-info" href="{{ route('admin.edituser',$user->id) }}">Edit user</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete user</button>
                     </form>
                 </td>
             </tr>

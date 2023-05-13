@@ -27,6 +27,12 @@ class AdminUserController extends Controller
         return view('admin.create');
     }
 
+    public function createuser()
+    {
+        $roles = Role::all();
+        return view('users.createuser', compact('roles'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -39,6 +45,28 @@ class AdminUserController extends Controller
         Role::create($request->post());
 
         return redirect()->route('admin.index')->with('success','Role has been created successfully.');
+    }
+
+    public function storeuser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        $roles = $request->input('roles');
+        if (!empty($roles)) {
+            $user->roles()->attach($roles);
+        }
+    
+        return redirect()->route('admin.index')->with('success','User has been created successfully.');
     }
 
     /**
@@ -59,15 +87,52 @@ class AdminUserController extends Controller
         return view('admin.edit',compact('user','roles'));
     }
 
+    public function edituser(string $id)
+    {
+        $user = User::find($id);
+        return view('users.edituser',compact('user'));
+    }
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-       
-
-        
+               
     }
+
+    public function updateuser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+    
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'nullable',
+        ]);
+    
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+    
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+    
+        $user->save();
+    
+        return redirect()->route('admin.index')->with('success', 'User has been updated successfully.');
+    }
+    
+    public function deleteuser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('admin.index')
+            ->with('success', 'User has been deleted successfully.');
+    }
+
+
     public function addrole(Request $request, string $id){
         
         if(is_numeric($request->role)){
@@ -78,16 +143,12 @@ class AdminUserController extends Controller
         return redirect()->route('admin.index')->with('success','Role Has Been added successfully');
         }
         return redirect()->route('admin.index')->with('error','Error');
-        
-
     }
 
     public function deleterole(string $id){
         $user = User::find($id);
         return view('admin.deleterole',compact('user'));
     }
-    
-
     
     public function destroyrole(Request $request, string $id)
     {
