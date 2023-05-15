@@ -53,7 +53,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($countrylanguage as $countrylanguage)
+            @foreach ($Countrylanguage as $countrylanguage)
             <tr>
                 <td>{{ $countrylanguage->CountryCode }}</td>
                 <td>{{ $countrylanguage->Language }}</td>
@@ -63,6 +63,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $Countrylanguage->links('pagination::bootstrap-4') }}
 </div>
 </body>
 </html>

@@ -64,4 +64,54 @@ class CityController extends Controller
         return redirect()->route('city.index')->with('success','City has been deleted successfully');
     }
 
+    function action(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output = '';
+            $query = $request->get('query');
+            if($query != '') {
+                $data = City::where('Name', 'LIKE', '%' . $query . '%')->orderBy('ID', 'desc')->paginate(10);
+                    
+            } else {
+                $data = City::orderBy('ID','desc')->paginate(10);
+            }
+             
+            $total_row = $data->count();
+            if($total_row > 0){
+                foreach($data as $city){
+                    $output .= '
+                <tr>
+                <td>'.$city->ID.'</td>
+                <td>'.$city->Name.'</td>
+                <td>'.$city->CountryCode.'</td>
+                <td>'.$city->District.'</td>
+                <td>'.$city->Population.'</td>
+                <td>
+                    <form action="'.route('city.destroy',$city->ID).'" method="Post">
+                        <a class="btn btn-primary"href="'.route('city.edit',$city->ID).'">Edit</a>
+                        <input type="hidden" name="_token" value="'.csrf_token().'">
+                         <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                
+            </tr>
+            ';
+           }
+            } else {
+                $output = '
+                <tr>
+                    <td align="center" colspan="5">No Data Found</td>
+                </tr>
+                ';
+            }
+            $data = array(
+                'table_data'  => $output,
+                'total_data'  => $total_row
+            );
+            echo json_encode($data);
+        }
+    }
+
 }

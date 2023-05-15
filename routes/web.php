@@ -19,6 +19,7 @@ Route::post('users/storeUser', [AdminUserController::class, 'storeuser'])->name(
 Route::get('users/editUser/{id}', [AdminUserController::class, 'edituser'])->name('admin.edituser');
 Route::post('users/updateUser/{id}', [AdminUserController::class, 'updateuser'])->name('admin.updateuser');
 Route::delete('users/{id}', [AdminUserController::class, 'deleteuser'])->name('admin.deleteuser');
+Route::get('/action', [CityController::class, 'action'])->name('action');
 
 Route::get('/', function () {
     return view('welcome');

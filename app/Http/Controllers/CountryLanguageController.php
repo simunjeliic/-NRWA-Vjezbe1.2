@@ -9,7 +9,7 @@ class CountryLanguageController extends Controller
 {
     public function index()
     {
-        $countrylanguage = CountryLanguage::orderBy('CountryCode','desc')->paginate(10);
-        return view('countrylanguage.index', compact('countrylanguage'));
+        $Countrylanguage = CountryLanguage::orderBy('CountryCode','desc')->paginate(10);
+        return view('countrylanguage.index', compact('Countrylanguage'));
     }
 }

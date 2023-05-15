@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" >
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,6 +42,11 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <input type="text" name="search" id="search" class="form-control" placeholder="Search City">
+        </div>
+    </div>
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -58,26 +64,38 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($city as $city)
-            <tr>
-                <td>{{ $city->ID }}</td>
-                <td>{{ $city->Name }}</td>
-                <td>{{ $city->CountryCode }}</td>
-                <td>{{ $city->District }}</td>
-                <td>{{ $city->Population }}</td>
-                <td>
-                    <form action="{{ route('city.destroy',$city->ID) }}" method="Post">
-                        <a class="btn btn-primary"href="{{ route('city.edit',$city->ID) }}">Edit</a>
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
         </tbody>
+        
     </table>
-   
+    
 </div>
+<script>
+$(document).ready(function(){
+ 
+    fetch_customer_data();
+    
+    function fetch_customer_data(query = '')
+    {
+        $.ajax({
+            url:"{{ route('action') }}",
+            method:'GET',
+            data:{query:query},
+            dataType:'json',
+            success:function(data)
+            {
+                $('tbody').html(data.table_data);
+                $('#total_records').text(data.total_data);
+            }
+        })
+        
+    }
+    $(document).on('keyup', '#search', function(){
+        var query = $(this).val();
+        fetch_customer_data(query);
+    });
+ 
+    
+});
+</script>
 </body>
 </html>

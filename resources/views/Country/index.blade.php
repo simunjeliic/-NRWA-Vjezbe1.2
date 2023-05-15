@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +59,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($country as $country)
+            @foreach ($countries as $country)
             <tr>
                 <td>{{ $country->Code }}</td>
                 <td>{{ $country->Name }}</td>
@@ -74,9 +75,12 @@
                     </form>
                 </td>
             </tr>
+            
             @endforeach
         </tbody>
     </table>
+    
+    {{ $countries->links('pagination::bootstrap-4') }}
 </div>
 </body>
 </html>
