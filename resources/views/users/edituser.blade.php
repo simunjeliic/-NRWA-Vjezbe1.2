@@ -82,6 +82,20 @@
                     @enderror
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Select Roles:</strong><br>
+                        @foreach($roles as $role)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}" {{ in_array($role->id, $user->roles->pluck('id')->toArray()) ? 'checked' : '' }}>
+                            <label class="form-check-label">{{ $role->name }}</label>
+                        </div>
+                        @endforeach
+                        @error('roles')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
             <button type="submit" class="btn btn-primary ml-3">Submit</button>
         </div>
     </form>

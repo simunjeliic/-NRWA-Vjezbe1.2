@@ -62,16 +62,18 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <strong>Roles:</strong><br>
-
-                    @foreach ($user->roles as $role) 
-                    {{ $role->name }} 
+                <div class="form-group">
+                    <strong>Roles:</strong><br>
+                    @foreach($roles as $role)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="roles[]" value="{{ $role->id }}">
+                            <label class="form-check-label">{{ $role->name }}</label>
+                        </div>
                     @endforeach
-
-                    @error('countrycode')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                    @error('roles')
+                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
-
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">

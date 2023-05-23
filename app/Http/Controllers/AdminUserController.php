@@ -90,7 +90,8 @@ class AdminUserController extends Controller
     public function edituser(string $id)
     {
         $user = User::find($id);
-        return view('users.edituser',compact('user'));
+        $roles = Role::all();
+        return view('users.edituser',compact('user', 'roles'));
     }
 
     /**
@@ -104,22 +105,27 @@ class AdminUserController extends Controller
     public function updateuser(Request $request, $id)
     {
         $user = User::findOrFail($id);
-    
+
         $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'nullable',
+            'roles' => 'array', // Ensure roles input is an array
         ]);
-    
+
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-    
+
         if ($request->has('password')) {
             $user->password = bcrypt($request->input('password'));
         }
-    
+
+        // Update the user's roles
+        $selectedRoles = $request->input('roles', []); // Get the selected roles as an array
+        $user->roles()->sync($selectedRoles); // Sync the roles with the user (update the pivot table)
+
         $user->save();
-    
+
         return redirect()->route('admin.index')->with('success', 'User has been updated successfully.');
     }
     

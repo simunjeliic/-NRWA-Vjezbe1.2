@@ -33,8 +33,8 @@
 </nav>
 
 <div class="jumbotron">
-  <h1 class="display-4">Vjezba 1.2 - Grupa 5</h1>
-  <p class="lead">Obrada teorijskog dijela općenitog MVC arhitektonskog obrasca koji se koristi u programskoj potpori</p>
+  <h1 class="display-4">Grupa 5</h1>
+  <p class="lead">Napredni razvoj web aplikacija</p>
 </div>
 
 </body>
